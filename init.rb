@@ -14,7 +14,7 @@ Redmine::Plugin.register :redmine_contract_request do
   menu :top_menu, :contract_request, {:controller => :contract_requests, :action => :index}, :caption => :label_contract_request_plural, :if => Proc.new{true || User.current.contract_request_manager?}
   menu :project_menu, :contract_request, {:controller => :contract_requests, :action => :index}, :caption => :label_contract_request_plural, :param => :project_id, :if => Proc.new{true || User.current.contract_request_manager?}
 
-  project_module :contract_request_module do
+  project_module :contract_request do
     permission :view_contract_request,    :contract_requests => [:index, :show]
     permission :manage_contract_request,  :contract_requests => [:new, :create, :edit, :update, :destroy]
   end

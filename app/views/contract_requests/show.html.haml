@@ -1,36 +1,35 @@
 .contextual
-  = link_to l(:button_add), {:action => :new, :project_id => params[:project_id]}, :class => 'icon icon-add'
+  = link_to l(:button_add), {:action => :new, :project_id => @project}, :class => 'icon icon-add'
   = link_to l(:button_update), {:action => :edit, :id => @object}, :class => 'icon icon-edit'
   = link_to l(:button_delete), {:action => :destroy, :id => @object}, :confirm => l(:text_are_you_sure), :method => :delete, :class => 'icon icon-del'
 
 %h2
-  = link_to l(:label_staff_request), :action => :index
+  = link_to l(:label_contract_request_plural), :action => :index
   &#187;
-  = h(@object.name)
-  = "(#{@object.position_count})"
+  = h(@object.contract_subject)
 
 .issue.details
   %table.attributes
     %tr
-      %th= l(:field_company_name)+":"
-      %td= h(@object.company_name)
-      %th= l(:field_position_type_name)+":"
-      %td= h(@object.position_type_name)
+      %th= l(:field_contract_subject)+":"
+      %td= h(@object.contract_subject)
+      %th= l(:field_contract_type)+":"
+      %td= h(@object.contract_type)
     %tr
-      %th= l(:field_department_name)+":"
-      %td= h(@object.department_name)
-      %th= l(:field_position_type_comment)+":"
-      %td= h(@object.position_type_comment)
+      %th= l(:field_contract_organization)+":"
+      %td= h(@object.contract_organization)
+      %th= l(:field_contact)+":"
+      %td= h(@object.contact)
     %tr
-      %th= l(:field_boss_name)+":"
-      %td= h(@object.boss_name)
-      %th= l(:field_employment_type_name)+":"
-      %td= h(@object.employment_type_name)
+      %th= l(:field_contract_price)+":"
+      %td= h(@object.contract_price)
+      %th= l(:field_project)+":"
+      %td= link_to_project @object.project
     %tr
-      %th= l(:field_priority)+":"
-      %td= h(@object.priority.try(:name))
-      %th= l(:field_require_education_name)+":"
-      %td= h(@object.require_education_name)
+      %th= l(:field_contract_time)+":"
+      %td= h(@object.contract_time)
+      %th= l(:field_contract_settlement_procedure)+":"
+      %td= h(@object.contract_settlement_procedure)
     %tr
       %th= l(:field_created_on)+":"
       %td= format_date(@object.created_on)
@@ -38,14 +37,11 @@
       %td= link_to_user @object.author
   %hr
   %p
-    %strong= l(:field_require_program_skills)
-  .wiki= textilizable @object, :require_program_skills
+    %strong= l(:field_contract_other_terms)
+  .wiki= textilizable @object, :contract_other_terms
   %p
-    %strong= l(:field_require_experience)
-  .wiki= textilizable @object, :require_experience
-  %p
-    %strong= l(:field_functional_responsibilities)
-  .wiki= textilizable @object, :functional_responsibilities
+    %strong= l(:field_contract_attachments)
+  .wiki= textilizable @object, :contract_attachments
 
 - if @journals.present?
   #history

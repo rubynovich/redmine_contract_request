@@ -1,0 +1,104 @@
+:css
+  .inline-block{ display: inline-block }
+
+%fieldset
+  %legend= l(:label_filter_plural)
+  %form{:method => :get}
+    - [:contract_time, :contract_subject, :contract_price].each do |item|
+      = hidden_field_tag item, params[item]
+
+    .inline-block
+      %label{:for=>'contract_type'}= l(:field_contract_type) + ":"
+      %select{:id => 'contract_type', :name => 'contract_type', :class => "small", :onchange => "this.form.submit(); return false;"}
+        %option
+        - contract_type_for_select.each do |item|
+          - if params[:contract_type] == item
+            %option{:value => item, :selected => "selected"}= item
+          - else
+            %option{:value => item}= item
+
+    .inline-block
+      %label{:for=>'contract_organization'}= l(:field_contract_organization) + ":"
+      %select{:id => 'contract_organization', :name => 'contract_organization', :class => "small", :onchange => "this.form.submit(); return false;"}
+        %option
+        - contract_organization_for_select.each do |item|
+          - if params[:contract_organization] == item
+            %option{:value => item, :selected => "selected"}= item
+          - else
+            %option{:value => item}= item
+
+    .inline-block
+      %label{:for=>'contract_settlement_procedure'}= l(:field_contract_settlement_procedure) + ":"
+      %select{:id => 'contract_settlement_procedure', :name => 'contract_settlement_procedure', :class => "small", :onchange => "this.form.submit(); return false;"}
+        %option
+        - contract_settlement_procedure_for_select.each do |item|
+          - if params[:contract_settlement_procedure] == item
+            %option{:value => item, :selected => "selected"}= item
+          - else
+            %option{:value => item}= item
+
+    .inline-block
+      %label{:for=>'contact_id'}= l(:field_contact) + ":"
+      %select{:id => 'contact_id', :name => 'contact_id', :class => "small", :onchange => "this.form.submit(); return false;"}
+        %option
+        = options_from_collection_for_select(@project.try(:contacts) || [], :id, :name, params[:contact_id] && params[:contact_id].to_i)
+
+    .inline-block
+      %label{:for=>'project_id'}= l(:field_project) + ":"
+      %select{:id => 'project_id', :name => 'project_id', :class => "small", :onchange => "this.form.submit(); return false;"}
+        %option
+        = project_tree_options_for_select(Project.active.all(:order => :name), :selected => @project)
+
+    .inline-block
+      %label{:for=>'author_id'}= l(:field_author) + ":"
+      %select{:id => 'author_id', :name => 'author_id', :class => "small", :onchange => "this.form.submit(); return false;"}
+        %option
+        = options_from_collection_for_select(author_id_for_select, :id, :name, params[:author_id] && params[:author_id].to_i)
+
+    .inline-block
+      %label{:for=>'status_id'}= l(:field_status) + ":"
+      %select{:id => 'status_id', :name => 'status_id', :class => "small", :onchange => "this.form.submit(); return false;"}
+        %option
+        = options_from_collection_for_select(status_id_for_select, :id, :name, params[:status_id] && params[:status_id].to_i)
+
+    - %w{created_on}.each do |type_date|
+      %br
+      %label=l(:"field_#{type_date}") + ":"
+      - %w{all}.each do |key|
+        - if params[:"time_period_#{type_date}"] == key
+          %strong
+            = l(:"label_#{key}")
+        - else
+          = link_to l(:"label_#{key}"), params.merge( :"time_period_#{type_date}" => key, :"#{type_date}" => "" )
+
+      = "/"
+      %input{:id => type_date, :name => type_date, :size => 10, :onchange => "this.form.submit(); return false;", :value => params[type_date]}
+      = calendar_for(type_date)
+
+      - time_periods.each do |key|
+        = "/"
+        - if params[:"time_period_#{type_date}"] == key
+          %strong
+            = l(:"label_#{key}")
+        - else
+          = link_to l(:"label_#{key}"), params.merge( :"time_period_#{type_date}" => key, :"#{type_date}" => "" )
+    %br
+
+  %form{:method => :get}
+    - [:contract_type, :contract_organization, :contract_settlement_procedure, :contact_id, :project_id, :author_id, :status_id, :time_period_created_on].each do |item|
+      = hidden_field_tag item, params[item]
+
+    .inline-block
+      %label{:for=>'contract_subject'}= l(:field_contract_subject) + ":"
+      = text_field_tag 'contract_subject', params[:contract_subject], :size => 30
+
+    .inline-block
+      %label{:for=>'contract_price'}= l(:field_contract_price) + ":"
+      = text_field_tag 'contract_price', params[:contract_price], :size => 30
+
+    .inline-block
+      %label{:for=>'contract_time'}= l(:field_contract_time) + ":"
+      = text_field_tag 'contract_time', params[:contract_time], :size => 30
+
+      = submit_tag l(:button_apply), :class => "small", :name => nil
+      = link_to l(:button_clear), {:action => :index}, :class => 'icon icon-reload'

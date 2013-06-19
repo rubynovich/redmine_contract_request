@@ -3,6 +3,7 @@ class ContractRequestsController < ApplicationController
 
   before_filter :find_object, :only => [:edit, :update, :show, :destroy]
   before_filter :find_project, :only => [:index, :new]
+  before_filter :get_project, :only => [:edit, :show]
   before_filter :new_object, :only => [:index, :new, :create]
 
   def index
@@ -82,6 +83,14 @@ class ContractRequestsController < ApplicationController
 
     def find_project
       @project = Project.find(params[:project_id]) if params[:project_id].present?
+    end
+
+    def get_project
+      begin
+        @project = (@object || find_object).project
+      rescue
+        render_403
+      end
     end
 
     def new_object

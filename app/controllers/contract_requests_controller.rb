@@ -6,6 +6,8 @@ class ContractRequestsController < ApplicationController
   before_filter :get_project, :only => [:edit, :update, :show]
   before_filter :new_object, :only => [:index, :new, :create]
 
+  helper :journals
+  helper :issues
   helper :attachments
   include AttachmentsHelper
 

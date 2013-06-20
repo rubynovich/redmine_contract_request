@@ -11,8 +11,8 @@ Redmine::Plugin.register :redmine_contract_request do
                      },
          :partial => 'contract_requests/settings'
 
-  menu :top_menu, :contract_requests, {:controller => :contract_requests, :action => :index}, :caption => :label_contract_request_plural, :if => Proc.new{true || User.current.contract_request_manager?}
-  menu :project_menu, :contract_requests, {:controller => :contract_requests, :action => :index}, :caption => :label_contract_request_plural, :param => :project_id, :if => Proc.new{true || User.current.contract_request_manager?}
+  menu :top_menu, :contract_requests, {:controller => :contract_requests, :action => :index}, :caption => :label_contract_request_plural, :if => Proc.new{User.current.contract_request_manager?}
+  menu :project_menu, :contract_requests, {:controller => :contract_requests, :action => :index}, :caption => :label_contract_request_plural, :param => :project_id, :if => Proc.new{ User.current.contract_request_manager? }
 
   project_module :contract_request do
     permission :view_contract_request,    :contract_requests => [:index, :show]

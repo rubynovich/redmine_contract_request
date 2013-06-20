@@ -16,7 +16,7 @@ class ContractRequest < ActiveRecord::Base
 
   attr_accessor :priority_id
 
-  acts_as_attachable
+  acts_as_attachable :view_permission => true, :delete_permission => true
 
   def attachments_visible?(user=User.current)
       user.allowed_to?(self.class.attachable_options[:view_permission], nil, :global => true)

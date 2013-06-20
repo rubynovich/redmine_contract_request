@@ -14,8 +14,8 @@ class ContractRequestsController < ApplicationController
 
     @scope = object_class_name.
       like_field(params[:contract_time], :contract_time).
-      like_field(params[:contract_subject], :contract_subject).
       like_field(params[:contract_price], :contract_price).
+      eql_field(params[:contract_subject], :contract_subject).
       eql_field(params[:company_type], :company_type).
       eql_field(params[:company_organization], :company_organization).
       eql_field(params[:company_settlement_procedure], :company_settlement_procedure).

@@ -4,7 +4,7 @@ module ContractRequestsHelper
   end
 
   def contract_subject_for_select
-    t(:contract_subject, :scope => :contract_subject)
+    t(:contract_subject, :scope => :contract_requiest)
   end
 
   def contract_organization_for_select

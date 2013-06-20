@@ -14,6 +14,7 @@
         %tr
           %th= "#"
           %th= l(:label_issue_status)
+          %th= l(:label_issue_priority)
           %th= l(:field_contract_subject)
           %th= l(:field_contract_type)
           %th= l(:field_contract_time)
@@ -30,8 +31,11 @@
       %tbody
         - @collection.each do |item|
           %tr{:class=>cycle("odd", "even")}
-            %td{:align=>:center}= link_to_issue item.issue, :project => false, :tracker => false, :subject => false
+            %td{:align=>:center}
+              - if item.issue.present?
+                = link_to_issue item.issue, :project => false, :tracker => false, :subject => false
             %td{:align=>:center}= h(item.status)
+            %td{:align=>:center}= h(item.priority)
             %td{:align=>:left}=  link_to h(item.contract_subject), :action => :show, :id => item.id
             %td{:align=>:center}= h(item.contract_type)
             %td{:align=>:center}= h(item.contract_time)

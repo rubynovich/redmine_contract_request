@@ -57,9 +57,15 @@
 
     .inline-block
       %label{:for=>'status_id'}= l(:field_status) + ":"
-      %select{:id => 'status_id', :name => 'status_id', :class => "small", :onchange => "this.form.submit(); return false;"}
+      %select{:id => 'status_id', :name => 'status_id', :class => "small", :onchange => "this.form.submit(); return false;", :disabled => true}
         %option
         = options_from_collection_for_select(status_id_for_select, :id, :name, params[:status_id] && params[:status_id].to_i)
+
+    .inline-block
+      %label{:for=>'priority_id'}= l(:field_priority) + ":"
+      %select{:id => 'priority_id', :name => 'priority_id', :class => "small", :onchange => "this.form.submit(); return false;", :disabled => true}
+        %option
+        = options_from_collection_for_select(IssuePriority.all(:order => :position), :id, :name, params[:priority_id] && params[:priority_id].to_i)
 
     - %w{created_on}.each do |type_date|
       %br

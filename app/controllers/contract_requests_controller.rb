@@ -2,21 +2,29 @@ class ContractRequestsController < ApplicationController
   unloadable
 
   before_filter :find_object, :only => [:edit, :update, :show, :destroy]
-  before_filter :find_project, :only => [:index, :new]
-  before_filter :get_project, :only => [:edit, :show]
+  before_filter :find_project, :only => [:index, :new, :create, :update]
+  before_filter :get_project, :only => [:edit, :update, :show]
   before_filter :new_object, :only => [:index, :new, :create]
 
-  def index
-#    sort_init 'created_on', 'desc'
-#    sort_update %w(name company_name department_name boss_name position_type_name employment_type_name require_education_name created_on)
+  helper :attachments
+  include AttachmentsHelper
 
+  def index
     @limit = per_page_option
 
     @scope = object_class_name.
-      where(nil) # FIXME
-#      like_field(params[:name], :name).
-#      eql_field(params[:company_name], :company_name).
-#      time_period(params[:time_period_created_on], :created_on)
+      like_field(params[:contract_time], :contract_time).
+      like_field(params[:contract_subject], :contract_subject).
+      like_field(params[:contract_price], :contract_price).
+      eql_field(params[:company_type], :company_type).
+      eql_field(params[:company_organization], :company_organization).
+      eql_field(params[:company_settlement_procedure], :company_settlement_procedure).
+      eql_field(params[:contact_id], :contact_id).
+      eql_field(@project.try(:id), :project_id).
+      eql_field(params[:author_id], :author_id).
+      time_period(params[:time_period_created_on], :created_on)
+
+    # TODO [:status_id, :priority_id]
 
     @count = @scope.count
 
@@ -40,8 +48,11 @@ class ContractRequestsController < ApplicationController
 
   def create
     @object.author_id = User.current.id
+    @object.project = @project
+    @object.save_attachments(params[:attachments])
     if @object.save
       flash[:notice] = l(:notice_successful_create)
+      render_attachment_warning_if_needed(@object)
       redirect_to :action => :show, :id => @object.id
     else
       render :action => :new

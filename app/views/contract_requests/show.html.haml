@@ -4,7 +4,7 @@
   = link_to l(:button_delete), {:action => :destroy, :id => @object}, :confirm => l(:text_are_you_sure), :method => :delete, :class => 'icon icon-del'
 
 %h2
-  = link_to l(:label_contract_request_plural), :action => :index
+  = link_to l(:label_contract_request_plural), :action => :index, :project_id => @object.project_id
   &#187;
   = h(@object.contract_subject)
 
@@ -35,6 +35,12 @@
       %td= format_date(@object.created_on)
       %th= l(:field_author)+":"
       %td= link_to_user @object.author
+    - if @object.issue.present?
+      %tr
+        %th= l(:field_issue)+":"
+        %td= link_to_issue @object.issue, :project => false, :tracker => false, :subject => false
+        %th= l(:field_status)+":"
+        %td= h(@object.status)
   %hr
   %p
     %strong= l(:field_contract_other_terms)
@@ -42,6 +48,8 @@
   %p
     %strong= l(:field_contract_attachments)
   .wiki= textilizable @object, :contract_attachments
+  %hr
+  = link_to_attachments @object if @object.attachments.any?
 
 - if @journals.present?
   #history

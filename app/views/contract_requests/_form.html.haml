@@ -7,19 +7,23 @@
     %p= f.text_field :contract_price, :required => true, :size => 40, :maxlength => 255
     %p
       = f.text_field :contract_time, :required => true, :size => 40, :maxlength => 255
-      = calendar_for('contract_request_contract_time')
   .splitcontentright
     %p= f.select :contract_type, contract_type_for_select, :required => true, :prompt => t(:prompt_please_select)
     %p
       = f.select :contact_id, contacts_for_select(@project), :required => true, :prompt => t(:prompt_please_select)
       = link_to l(:label_contact_new), {:controller => :contacts, :action => :new, :project_id => @project, :back_url => url_for(params)}, :class => 'icon icon-add'
-    %p= f.select :project_id, project_tree_options_for_select(Project.active.visible, :selected => @project), :required => true, :prompt => t(:prompt_please_select)
+    %p= f.select :priority_id, options_from_collection_for_select(IssuePriority.all(:order => :position), :id, :name, IssuePriority.default.try(:id))
     %p= f.select :contract_settlement_procedure, contract_settlement_procedure_for_select, :required => true, :prompt => t(:prompt_please_select)
 
   %div{:style=>"clear:both"}
 
-  %p= f.text_area :contract_other_terms, :cols => 60, :rows => 15, :class => 'wiki-edit', :required => true
-  %p= f.text_area :contract_attachments, :cols => 60, :rows => 15, :class => 'wiki-edit', :required => true
+  %p= f.text_area :contract_other_terms, :cols => 60, :rows => 15, :class => 'wiki-edit'
+  %p= f.text_area :contract_attachments, :cols => 60, :rows => 15, :class => 'wiki-edit'
+
+  = link_to_attachments @object if @object.attachments.any?
+  %p#attachments_form
+    = label_tag('attachments[1][file]', l(:label_attachment_plural))
+    = render :partial => 'attachments/form', :locals => {:container => @object}
 
 = wikitoolbar_for 'contract_request_contract_other_terms'
 = wikitoolbar_for 'contract_request_contract_attachments'

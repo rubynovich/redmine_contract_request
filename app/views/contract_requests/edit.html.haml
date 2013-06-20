@@ -1,5 +1,6 @@
 %h2= l(:label_edit_contract_request)
 
 = labelled_form_for @object, :html => {:method => :put} do |f|
+  = hidden_field_tag :project_id, @object.project_id
   = render :partial => 'form', :locals => { :f => f }
   = submit_tag l(:button_save)

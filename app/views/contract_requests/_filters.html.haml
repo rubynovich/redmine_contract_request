@@ -8,6 +8,16 @@
       = hidden_field_tag item, params[item]
 
     .inline-block
+      %label{:for=>'contract_subject'}= l(:field_contract_subject) + ":"
+      %select{:id => 'contract_subject', :name => 'contract_subject', :class => "small", :onchange => "this.form.submit(); return false;"}
+        %option
+        - contract_subject_for_select.each do |item|
+          - if params[:contract_subject] == item
+            %option{:value => item, :selected => "selected"}= item
+          - else
+            %option{:value => item}= item
+
+    .inline-block
       %label{:for=>'contract_type'}= l(:field_contract_type) + ":"
       %select{:id => 'contract_type', :name => 'contract_type', :class => "small", :onchange => "this.form.submit(); return false;"}
         %option

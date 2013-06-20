@@ -60,8 +60,10 @@ class ContractRequestsController < ApplicationController
   end
 
   def update
+    @object.save_attachments(params[:attachments])
     if @object.update_attributes(params[object_sym])
       flash[:notice] = l(:notice_successful_update)
+      render_attachment_warning_if_needed(@object)
       redirect_to :action => :show, :id => @object.id
     else
       render :action => :edit

@@ -16,7 +16,7 @@ class ContractRequest < ActiveRecord::Base
 
   attr_accessor :priority_id
 
-  acts_as_attachable :view_permission => true, :delete_permission => true
+  acts_as_attachable
 
   def attachments_visible?(user=User.current)
       user.allowed_to?(self.class.attachable_options[:view_permission], nil, :global => true)
@@ -115,11 +115,11 @@ class ContractRequest < ActiveRecord::Base
         end.join("\n\n")
     )
     if issue.save
-      attachments.each do |attachment|
+      self.attachments.each do |attachment|
         attachment.copy(
           :container_id => issue.id,
           :container_type => issue.class.name
-        ).save
+        ).save!
       end
 
       self.update_attribute(:issue_id, issue.id)

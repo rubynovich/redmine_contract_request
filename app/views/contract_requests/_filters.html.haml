@@ -51,13 +51,13 @@
       %label{:for=>'contact_id'}= l(:field_contact) + ":"
       %select{:id => 'contact_id', :name => 'contact_id', :class => "small", :onchange => "this.form.submit(); return false;"}
         %option
-        = options_from_collection_for_select(@project.try(:contacts) || [], :id, :name, params[:contact_id] && params[:contact_id].to_i)
+        = options_from_collection_for_select(contact_id_for_select(@project), :id, :name, params[:contact_id] && params[:contact_id].to_i)
 
     .inline-block
       %label{:for=>'project_id'}= l(:field_project) + ":"
       %select{:id => 'project_id', :name => 'project_id', :class => "small", :onchange => "this.form.submit(); return false;"}
         %option
-        = project_tree_options_for_select(Project.active.all(:order => :name), :selected => @project)
+        = project_tree_options_for_select(project_id_for_select, :selected => @project)
 
     .inline-block
       %label{:for=>'author_id'}= l(:field_author) + ":"
@@ -75,7 +75,7 @@
       %label{:for=>'priority_id'}= l(:field_priority) + ":"
       %select{:id => 'priority_id', :name => 'priority_id', :class => "small", :onchange => "this.form.submit(); return false;", :disabled => true}
         %option
-        = options_from_collection_for_select(IssuePriority.all(:order => :position), :id, :name, params[:priority_id] && params[:priority_id].to_i)
+        = options_from_collection_for_select(priority_id_for_select, :id, :name, params[:priority_id] && params[:priority_id].to_i)
 
     - %w{created_on}.each do |type_date|
       %br

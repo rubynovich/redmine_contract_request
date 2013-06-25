@@ -18,13 +18,21 @@ class ContractRequest < ActiveRecord::Base
 
   acts_as_attachable
 
-  def attachments_visible?(user=User.current)
-      user.allowed_to?(self.class.attachable_options[:view_permission], nil, :global => true)
-  end
+  scope :issue_status, lambda {|q|
+    if q.present?
+      {:conditions =>
+        ["#{self.class.table_name}.issue_id IN (SELECT #{Issue.table_name}.id FROM #{Issue.table_name} WHERE status_id=:status_id)",
+        {:status_id => q}]}
+    end
+  }
 
-  def attachments_deletable?(user=User.current)
-    user.allowed_to?(self.class.attachable_options[:delete_permission], nil, :global => true)
-  end
+  scope :issue_priority, lambda {|q|
+    if q.present?
+      {:conditions =>
+        ["#{self.class.table_name}.issue_id IN (SELECT #{Issue.table_name}.id FROM #{Issue.table_name} WHERE priority_id=:priority_id)",
+        {:priority_id => q}]}
+    end
+  }
 
   scope :like_field, lambda {|q, field|
     if q.present?
@@ -119,7 +127,7 @@ class ContractRequest < ActiveRecord::Base
         attachment.copy(
           :container_id => issue.id,
           :container_type => issue.class.name
-        ).save!
+        ).save
       end
 
       self.update_attribute(:issue_id, issue.id)

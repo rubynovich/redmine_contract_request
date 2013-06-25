@@ -15,6 +15,8 @@ class ContractRequestsController < ApplicationController
     @limit = per_page_option
 
     @scope = object_class_name.
+      issue_status(params[:status_id]).
+      issue_priority(params[:priority_id]).
       like_field(params[:contract_time], :contract_time).
       like_field(params[:contract_price], :contract_price).
       eql_field(params[:contract_subject], :contract_subject).
@@ -25,8 +27,6 @@ class ContractRequestsController < ApplicationController
       eql_field(@project.try(:id), :project_id).
       eql_field(params[:author_id], :author_id).
       time_period(params[:time_period_created_on], :created_on)
-
-    # TODO [:status_id, :priority_id]
 
     @count = @scope.count
 

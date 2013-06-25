@@ -15,12 +15,24 @@ module ContractRequestsHelper
     t(:contract_settlement_procedure, :scope => :contract_requiest)
   end
 
+  def project_id_for_select
+    Project.where("#{Project.table_name}.id IN (SELECT #{ContractRequest.table_name}.project_id FROM #{ContractRequest.table_name})").all(:order => :name)
+  end
+
   def author_id_for_select
-    ContractRequest.select(:author_id).uniq.all.select(&:author_id).map(&:author)
+    User.where("#{User.table_name}.id IN (SELECT #{ContractRequest.table_name}.author_id FROM #{ContractRequest.table_name})").all(:order => [:lastname, :firstname])
   end
 
   def status_id_for_select
-    IssueStatus.all
+    IssueStatus.all(:order => :position)
+  end
+
+  def priority_id_for_select
+    IssuePriority.all(:order => :position)
+  end
+
+  def contact_id_for_select(project)
+    Contact.where("#{Contact.table_name}.id IN (SELECT #{ContractRequest.table_name}.contact_id FROM #{ContractRequest.table_name})").all
   end
 
   def time_periods

@@ -100,7 +100,7 @@ class ContractRequestsController < ApplicationController
       begin
         @project = Project.find(params[:project_id])
       rescue
-        render_403
+        redirect_to :action => :index
       end
     end
 

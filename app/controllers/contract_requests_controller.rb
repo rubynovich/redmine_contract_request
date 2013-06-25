@@ -97,7 +97,11 @@ class ContractRequestsController < ApplicationController
     end
 
     def find_project
-      @project = Project.find(params[:project_id]) if params[:project_id].present?
+      begin
+        @project = Project.find(params[:project_id])
+      rescue
+        render_403
+      end
     end
 
     def get_project

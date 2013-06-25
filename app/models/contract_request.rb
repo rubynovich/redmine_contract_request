@@ -21,7 +21,7 @@ class ContractRequest < ActiveRecord::Base
   scope :issue_status, lambda {|q|
     if q.present?
       {:conditions =>
-        ["#{self.class.table_name}.issue_id IN (SELECT #{Issue.table_name}.id FROM #{Issue.table_name} WHERE status_id=:status_id)",
+        ["#{self.table_name}.issue_id IN (SELECT #{Issue.table_name}.id FROM #{Issue.table_name} WHERE status_id=:status_id)",
         {:status_id => q}]}
     end
   }
@@ -29,7 +29,7 @@ class ContractRequest < ActiveRecord::Base
   scope :issue_priority, lambda {|q|
     if q.present?
       {:conditions =>
-        ["#{self.class.table_name}.issue_id IN (SELECT #{Issue.table_name}.id FROM #{Issue.table_name} WHERE priority_id=:priority_id)",
+        ["#{self.table_name}.issue_id IN (SELECT #{Issue.table_name}.id FROM #{Issue.table_name} WHERE priority_id=:priority_id)",
         {:priority_id => q}]}
     end
   }

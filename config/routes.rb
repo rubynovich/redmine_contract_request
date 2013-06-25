@@ -5,5 +5,5 @@ resources :projects do
   resources :contract_requests, :only => [:index, :new]
 end
 
-resources :contract_requests, :except => [:new]
+resources :contract_requests
 #get 'projects/:project_id/contract_requests' => 'contract_requests#index'

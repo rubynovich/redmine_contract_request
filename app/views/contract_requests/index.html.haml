@@ -1,6 +1,12 @@
 .contextual
   - if @project.present?
     = link_to l(:label_contract_request_new), {:action => :new, :project_id => @project}, :class => 'icon icon-add'
+  - else
+    %form{:method => :get, :action => url_for(:action => :new)}
+      %label{:for=>'project_id', :class => 'icon icon-add'}= l(:label_contract_request_new)
+      %select{:id => 'project_id', :name => 'project_id', :class => "small", :onchange => "this.form.submit(); return false;"}
+        %option{:value => nil, :selected => "selected"}= t(:prompt_please_select)
+        = project_tree_options_for_select(project_id_for_select)
 
 %h2=l(:label_contract_request_plural)
 - html_title l(:label_contract_request_plural)

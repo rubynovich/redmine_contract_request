@@ -97,11 +97,7 @@ class ContractRequestsController < ApplicationController
     end
 
     def find_project
-      begin
-        @project = Project.find(params[:project_id])
-      rescue
-        redirect_to :action => :index
-      end
+      @project = Project.find(params[:project_id]) if params[:project_id].present?
     end
 
     def get_project

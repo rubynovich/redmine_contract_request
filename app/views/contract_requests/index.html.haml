@@ -15,16 +15,16 @@
           %th= "#"
           %th= l(:label_issue_status)
           %th= l(:label_issue_priority)
-          %th= l(:field_contract_subject)
           %th= l(:field_contract_type)
-          %th= l(:field_contract_time)
+          %th= l(:field_contract_subject)
           %th= l(:field_contract_organization)
-          %th= l(:field_contract_price)
           %th= l(:field_contact)
+          %th= l(:field_contract_price)
+          %th= l(:field_contract_settlement_procedure)
+          %th= l(:field_contract_time)
+          %th= l(:field_author)
           - if @project.blank?
             %th= l(:field_project)
-          %th= l(:field_contract_settlement_procedure)
-          %th= l(:field_author)
           %th= l(:field_created_on)
           - if @project.present?
             %th
@@ -36,16 +36,16 @@
                 = link_to_issue item.issue, :project => false, :tracker => false, :subject => false
             %td{:align=>:center}= h(item.status)
             %td{:align=>:center}= h(item.priority)
-            %td{:align=>:left}=  link_to h(item.contract_subject), :action => :show, :id => item.id
             %td{:align=>:center}= h(item.contract_type)
-            %td{:align=>:center}= h(item.contract_time)
+            %td{:align=>:left}=  link_to h(item.contract_subject), :action => :show, :id => item.id
             %td{:align=>:center}= h(item.contract_organization)
-            %td{:align=>:center}= h(contract_price(item))
             %td{:align=>:center}= h(item.contact)
+            %td{:align=>:center}= h(contract_price(item))
+            %td{:align=>:center}= h(item.contract_settlement_procedure)
+            %td{:align=>:center}= h(item.contract_time)
+            %td{:align=>:center}= link_to item.author, params.merge(:author_id => item.author_id)
             - if @project.blank?
               %td{:align=>:center}= link_to_project item.project
-            %td{:align=>:center}= h(item.contract_settlement_procedure)
-            %td{:align=>:center}= link_to item.author, params.merge(:author_id => item.author_id)
             %td{:align=>:center}= format_date(item.created_on)
             - if @project.present?
               %td.buttons

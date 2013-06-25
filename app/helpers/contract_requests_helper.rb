@@ -40,10 +40,15 @@ module ContractRequestsHelper
   end
 
   def contract_price(item)
-    ActionController::Base.helpers.number_to_currency(item.contract_price,
-        :unit => '',
-        :separator => '.',
-        :delimiter => ' ',
-        :precision => 2)
+    price = item.contract_price
+    if price[/^\d+$/]
+      ActionController::Base.helpers.number_to_currency(price,
+          :unit => '',
+          :separator => '.',
+          :delimiter => ' ',
+          :precision => 2)
+    else
+      price
+    end
   end
 end

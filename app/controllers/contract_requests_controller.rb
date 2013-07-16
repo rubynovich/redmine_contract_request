@@ -11,6 +11,10 @@ class ContractRequestsController < ApplicationController
   helper :attachments
   include AttachmentsHelper
 
+  include ContactsHelper
+  helper :contacts
+
+
   def index
     @limit = per_page_option
 

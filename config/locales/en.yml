@@ -1,10 +1,10 @@
 # English strings go here for Rails i18n
 en:
-  link_today: today
-  link_yesterday: yesterday
-  link_last_week: last week
-  link_this_week: this week
-  link_last_month: last month
-  link_this_month: this month
-  link_last_year: last year
-  link_this_year: this year
+  label_period_today: today
+  label_period_yesterday: yesterday
+  label_period_last_week: last week
+  label_period_this_week: this week
+  label_period_last_month: last month
+  label_period_this_month: this month
+  label_period_last_year: last year
+  label_period_this_year: this year

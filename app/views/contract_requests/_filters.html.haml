@@ -95,9 +95,9 @@
         = "/"
         - if params[:"time_period_#{type_date}"] == key
           %strong
-            = l(:"label_#{key}")
+            = l(:"link_#{key}")
         - else
-          = link_to l(:"label_#{key}"), params.merge( :"time_period_#{type_date}" => key, :"#{type_date}" => "" )
+          = link_to l(:"link_#{key}"), params.merge( :"time_period_#{type_date}" => key, :"#{type_date}" => "" )
     %br
 
   %form{:method => :get}

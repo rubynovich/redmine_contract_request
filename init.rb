@@ -27,9 +27,13 @@ Rails.configuration.to_prepare do
     require "contract_request_#{cl}_patch"
   end
 
+  require_dependency 'contract_request'
+  require 'time_period_scope'
+
   [
     [Issue, ContractRequestPlugin::IssuePatch],
-    [User, ContractRequestPlugin::UserPatch]
+    [User, ContractRequestPlugin::UserPatch],
+    [ContractRequest, TimePeriodScope]
   ].each do |cl, patch|
     cl.send(:include, patch) unless cl.included_modules.include? patch
   end

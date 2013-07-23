@@ -79,19 +79,11 @@
 
     - %w{created_on}.each do |type_date|
       %br
-      %label=l(:"field_#{type_date}") + ":"
-      - %w{all}.each do |key|
-        - if params[:"time_period_#{type_date}"] == key
-          %strong
-            = l(:"label_#{key}")
-        - else
-          = link_to l(:"label_#{key}"), params.merge( :"time_period_#{type_date}" => key, :"#{type_date}" => "" )
-
-      = "/"
+      %label=l(:"label_period") + ":"
       %input{:id => type_date, :name => type_date, :size => 10, :onchange => "this.form.submit(); return false;", :value => params[type_date]}
       = calendar_for(type_date)
 
-      - time_periods.each do |key|
+      - ContractRequest.time_periods.each do |key|
         = "/"
         - if params[:"time_period_#{type_date}"] == key
           %strong

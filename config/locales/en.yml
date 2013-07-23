@@ -1,5 +1,9 @@
 # English strings go here for Rails i18n
 en:
+
+  label_period: Period
+
+  label_period_any: any
   label_period_today: today
   label_period_yesterday: yesterday
   label_period_last_week: last week

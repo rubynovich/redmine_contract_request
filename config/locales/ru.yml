@@ -41,6 +41,10 @@ ru:
       - "аванс/предоплата 100%"
       - "оплата после выполнения работ/оказания услуг"
   message_contract_request_issue_subject: "[Заявка на договор] %{subject}"
+
+  label_period: Период 
+
+  label_period_any: любой
   label_period_today: сегодня
   label_period_yesterday: вчера
   label_period_last_week: предыдущая неделя

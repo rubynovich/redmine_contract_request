@@ -53,3 +53,8 @@ ru:
   label_period_this_month: этот месяц
   label_period_last_year: прошлый год
   label_period_this_year: этот год
+
+  permission_view_contract_request: Просмотр запросов на договор
+  permission_new_contract_request: Создание запроса на договор
+  permission_edit_contract_request: Редактирование запроса на договор
+  permission_delete_contract_request: Удаление запроса на договор

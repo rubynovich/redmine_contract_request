@@ -2,7 +2,7 @@ Redmine::Plugin.register :redmine_contract_request do
   name 'Contract Request'
   author 'Roman Shipiev'
   description 'Contract request for Redmine'
-  version '0.0.1'
+  version '0.0.2'
   url 'http://bitbucket.org/rubynovich/redmine_contract_request'
   author_url 'http://roman.shipiev.me'
 

@@ -33,6 +33,7 @@ ru:
       - "ООО «НВК-Холдинг»"
       - "ООО «ГорКапСтрой»"
       - "ООО «НПП Строительство»"
+      - "ООО «ЭТП СтройТорги»"
     contract_settlement_procedure:
       - "аванс/предоплата 10%"
       - "аванс/предоплата 30%"
@@ -42,7 +43,7 @@ ru:
       - "оплата после выполнения работ/оказания услуг"
   message_contract_request_issue_subject: "[Заявка на договор] %{subject}"
 
-  label_period: Период 
+  label_period: Период
 
   label_period_any: любой
   label_period_today: сегодня

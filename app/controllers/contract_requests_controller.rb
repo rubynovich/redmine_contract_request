@@ -48,7 +48,7 @@ class ContractRequestsController < ApplicationController
     @collection = @scope.
       limit(@limit).
       offset(@offset).
-#      order(sort_clause).
+      order("created_on DESC").
       all
   end
 

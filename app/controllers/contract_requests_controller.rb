@@ -5,6 +5,7 @@ class ContractRequestsController < ApplicationController
   before_filter :find_project, :only => [:index, :new, :create, :update]
   before_filter :get_project, :only => [:edit, :update, :show]
   before_filter :new_object, :only => [:index, :new, :create]
+  before_filter :require_staff_request_manager
 
   helper :journals
   helper :issues
@@ -18,7 +19,7 @@ class ContractRequestsController < ApplicationController
   def index
     @limit = per_page_option
 
-    @scope = object_class_name.
+    @scope = object_class_name.visible.
       issue_status(params[:status_id]).
       issue_priority(params[:priority_id]).
       like_field(params[:contract_time], :contract_time).
@@ -97,7 +98,7 @@ class ContractRequestsController < ApplicationController
     end
 
     def find_object
-      @object = object_class_name.find(params[:id])
+      @object = object_class_name.visible.find(params[:id])
     end
 
     def find_project

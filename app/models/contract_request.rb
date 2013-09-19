@@ -18,6 +18,12 @@ class ContractRequest < ActiveRecord::Base
 
   acts_as_attachable
 
+  scope :visible, lambda{
+    if !User.current.admin? && !User.current.contract_manager?
+      where("#{self.table_name}.author_id = ?", User.current.id)
+    end
+  }
+
   scope :issue_status, lambda {|q|
     if q.present?
       {:conditions =>
@@ -71,7 +77,7 @@ class ContractRequest < ActiveRecord::Base
                                  end
 
       {:conditions => ["#{field} BETWEEN ? AND ?", period_start , period_end] }
-      
+
     end
   }
 

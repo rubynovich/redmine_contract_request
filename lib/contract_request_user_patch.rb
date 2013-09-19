@@ -29,6 +29,18 @@ module ContractRequestPlugin
           nil
         end
       end
+      def contract_manager?
+        begin
+          principal = Principal.find(Setting[:plugin_redmine_contract_request][:assigned_to_id])
+          if principal.is_a?(Group)
+            principal.users.include?(self)
+          elsif principal.is_a?(User)
+            principal == self
+          end
+        rescue
+          nil
+        end
+      end
     end
   end
 end

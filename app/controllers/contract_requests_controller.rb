@@ -5,7 +5,7 @@ class ContractRequestsController < ApplicationController
   before_filter :find_project, :only => [:index, :new, :create, :update]
   before_filter :get_project, :only => [:edit, :update, :show]
   before_filter :new_object, :only => [:index, :new, :create]
-  before_filter :require_staff_request_manager
+  before_filter :require_contract_request_manager
 
   helper :journals
   helper :issues
@@ -125,7 +125,7 @@ class ContractRequestsController < ApplicationController
       journals
     end
 
-    def require_staff_request_manager
-      (render_403; return false) unless User.current.staff_request_manager?
+    def require_contract_request_manager
+      (render_403; return false) unless User.current.contract_request_manager?
     end
 end

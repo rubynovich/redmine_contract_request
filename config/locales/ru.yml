@@ -1,5 +1,8 @@
 # Russian strings go here for Rails i18n
 ru:
+
+  label_public_intercourse_menu: Взаимодействие с клиентами
+
   project_module_contract_request: "Заявки на договор"
   label_contract_request_plural: "Заявки на договор"
   label_contract_request_new: "Добавить заявку на договор"

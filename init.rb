@@ -16,17 +16,10 @@ Redmine::Plugin.register :redmine_contract_request do
 
   Redmine::MenuManager.map :top_menu do |menu| 
 
-    unless menu.exists?(:public_intercourse)
-      menu.push(:public_intercourse, "#", 
-                { :after => :home,
-                  :parent => :top_menu, 
-                  :caption => :label_public_intercourse_menu
-                })
-    end
-
+    parent = menu.exists?(:public_intercourse) ? :public_intercourse : :top_menu
     menu.push( :contract_requests, 
                {:controller => :contract_requests, :action => :index}, 
-               { :parent => :public_intercourse,            
+               { :parent => parent,            
                  :caption => :label_contract_request_plural, 
                  :if => Proc.new{User.current.contract_request_manager?}
                })

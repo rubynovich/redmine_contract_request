@@ -16,7 +16,9 @@ Redmine::Plugin.register :redmine_contract_request do
 
   Redmine::MenuManager.map :top_menu do |menu| 
 
-    parent = menu.exists?(:public_intercourse) ? :public_intercourse : :top_menu
+    # parent = menu.exists?(:public_intercourse) ? :public_intercourse : :top_menu
+    parent = menu.exists?(:public_intercourse) ? :projects : :top_menu
+
     menu.push( :contract_requests, 
                {:controller => :contract_requests, :action => :index}, 
                { :parent => parent,            

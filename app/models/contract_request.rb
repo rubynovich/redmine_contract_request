@@ -114,4 +114,12 @@ class ContractRequest < ActiveRecord::Base
       self.update_attribute(:issue_id, issue.id)
     end
   end
+
+private
+
+  def attachments_visible?(user=User.current)
+    true
+#    (respond_to?(:visible?) ? visible?(user) : true) &&
+#      user.allowed_to?(self.class.attachable_options[:view_permission], self.project)
+  end
 end

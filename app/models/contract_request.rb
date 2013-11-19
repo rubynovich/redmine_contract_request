@@ -115,8 +115,6 @@ class ContractRequest < ActiveRecord::Base
     end
   end
 
-private
-
   def attachments_visible?(user=User.current)
     true
 #    (respond_to?(:visible?) ? visible?(user) : true) &&
